@@ -29,20 +29,21 @@ export default function Home() {
   };
 
   return (
-    <main style={{ minHeight: '100vh', backgroundColor: '#f8fafc', color: '#0f172a', fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif', padding: '16px 20px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxSizing: 'border-box' }}>
+    <div style={{ minHeight: '100vh', backgroundColor: '#f8fafc', color: '#0f172a', fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif', padding: '16px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxSizing: 'border-box' }}>
       
       {/* 1. TOP HEADER NAVIGATION */}
-      <header style={{ width: '100%', maxWidth: '1100px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingBottom: '16px', borderBottom: '1px solid #e2e8f0' }}>
+      <header style={{ width: '100%', maxWidth: '1100px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingBottom: '16px', borderBottom: '1px solid #e2e8f0', boxSizing: 'border-box' }}>
         
-        {/* Available For Work Pill */}
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '5px 12px', borderRadius: '9999px', backgroundColor: '#ecfdf5', border: '1px solid #a7f3d0' }}>
-          <span style={{ width: '7px', height: '7px', borderRadius: '9999px', backgroundColor: '#10b981', display: 'inline-block' }}></span>
+        {/* Available For Work Badge */}
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 14px', borderRadius: '9999px', backgroundColor: '#ecfdf5', border: '1.5px solid #a7f3d0' }}>
+          <span style={{ width: '8px', height: '8px', borderRadius: '9999px', backgroundColor: '#10b981', display: 'inline-block' }}></span>
           <span style={{ fontSize: '11px', fontWeight: '700', color: '#047857' }}>Available for Work</span>
         </div>
 
-        {/* Navigation & Avatar */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-          <nav className="hidden md:flex items-center gap-6">
+        {/* Right Nav & Profile */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          
+          <nav className="hidden md:flex" style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
             <button onClick={() => openModal('about')} style={{ background: 'none', border: 'none', fontSize: '13px', fontWeight: '600', color: '#475569', cursor: 'pointer' }}>About Me</button>
             <button onClick={() => openModal('projects')} style={{ background: 'none', border: 'none', fontSize: '13px', fontWeight: '600', color: '#475569', cursor: 'pointer' }}>Projects</button>
             <button onClick={() => openModal('skills')} style={{ background: 'none', border: 'none', fontSize: '13px', fontWeight: '600', color: '#475569', cursor: 'pointer' }}>Skills</button>
@@ -51,109 +52,84 @@ export default function Home() {
 
           <button
             onClick={() => openModal('contact')}
-            style={{ padding: '7px 18px', fontSize: '13px', fontWeight: '700', borderRadius: '9999px', background: 'linear-gradient(135deg, #2563eb, #4f46e5)', color: '#ffffff', border: 'none', cursor: 'pointer', boxShadow: '0 3px 10px rgba(37,99,235,0.2)' }}
-            className="hidden sm:inline-block"
+            style={{ padding: '8px 20px', fontSize: '13px', fontWeight: '700', borderRadius: '9999px', background: 'linear-gradient(135deg, #2563eb, #4f46e5)', color: '#ffffff', border: 'none', cursor: 'pointer', boxShadow: '0 4px 12px rgba(37,99,235,0.25)' }}
           >
             Contact
           </button>
 
-          {/* Strictly Constrained Profile Avatar */}
-          <div style={{ width: '40px', height: '40px', minWidth: '40px', minHeight: '40px', maxWidth: '40px', maxHeight: '40px', borderRadius: '9999px', border: '2px solid #ffffff', boxShadow: '0 2px 6px rgba(0,0,0,0.1)', overflow: 'hidden', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          {/* Profile Avatar: Rigid 42px locked on HTML element */}
+          <div style={{ width: '42px', height: '42px', minWidth: '42px', maxWidth: '42px', minHeight: '42px', maxHeight: '42px', borderRadius: '9999px', border: '2px solid #ffffff', boxShadow: '0 2px 6px rgba(0,0,0,0.1)', overflow: 'hidden', position: 'relative', flexShrink: 0 }}>
             <img
               src="/profile.jpg"
               alt="Zabi Ullah"
-              style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '9999px', display: 'block' }}
+              width="42"
+              height="42"
+              style={{ width: '42px', height: '42px', maxWidth: '42px', maxHeight: '42px', objectFit: 'cover', borderRadius: '9999px', display: 'block' }}
               onError={(e) => {
                 (e.target as HTMLElement).style.display = 'none';
               }}
             />
-            <span style={{ position: 'absolute', bottom: '1px', right: '1px', width: '8px', height: '8px', backgroundColor: '#10b981', border: '1.5px solid #ffffff', borderRadius: '9999px' }}></span>
           </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden"
-            style={{ padding: '6px', borderRadius: '8px', backgroundColor: '#ffffff', border: '1px solid #cbd5e1', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-            aria-label="Toggle menu"
-          >
-            {mobileMenuOpen ? <X style={{ width: '18px', height: '18px', color: '#334155' }} /> : <Menu style={{ width: '18px', height: '18px', color: '#334155' }} />}
-          </button>
         </div>
       </header>
 
-      {/* Mobile Drawer Menu */}
-      {mobileMenuOpen && (
-        <div style={{ width: '100%', maxWidth: '1100px', margin: '10px auto', padding: '14px', borderRadius: '16px', backgroundColor: '#ffffff', border: '1px solid #e2e8f0', boxShadow: '0 10px 20px rgba(0,0,0,0.06)', display: 'flex', flexDirection: 'column', gap: '8px', boxSizing: 'border-box' }} className="md:hidden">
-          <button onClick={() => openModal('about')} style={{ textAlign: 'left', padding: '8px 12px', fontSize: '13px', fontWeight: '600', color: '#334155', background: 'none', border: 'none', cursor: 'pointer' }}>About Me</button>
-          <button onClick={() => openModal('projects')} style={{ textAlign: 'left', padding: '8px 12px', fontSize: '13px', fontWeight: '600', color: '#334155', background: 'none', border: 'none', cursor: 'pointer' }}>Projects</button>
-          <button onClick={() => openModal('skills')} style={{ textAlign: 'left', padding: '8px 12px', fontSize: '13px', fontWeight: '600', color: '#334155', background: 'none', border: 'none', cursor: 'pointer' }}>Skills</button>
-          <button onClick={() => openModal('credentials')} style={{ textAlign: 'left', padding: '8px 12px', fontSize: '13px', fontWeight: '600', color: '#334155', background: 'none', border: 'none', cursor: 'pointer' }}>Certifications</button>
-          <button onClick={() => openModal('contact')} style={{ textAlign: 'center', padding: '10px', fontSize: '13px', fontWeight: '700', color: '#ffffff', backgroundColor: '#2563eb', border: 'none', borderRadius: '10px', cursor: 'pointer' }}>Contact Me</button>
-        </div>
-      )}
-
       {/* 2. HERO SHOWCASE */}
-      <section style={{ width: '100%', maxWidth: '1100px', margin: '24px auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '36px', alignItems: 'center' }}>
+      <section style={{ width: '100%', maxWidth: '1100px', margin: '24px auto', display: 'flex', flexDirection: 'column', gap: '32px' }}>
         
-        {/* Left Column: Bio Details */}
+        {/* Bio Text Block */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-          
-          <div style={{ color: '#2563eb', fontWeight: '800', fontSize: '12px', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: '10px' }}>
+          <div style={{ color: '#2563eb', fontWeight: '800', fontSize: '12px', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: '8px' }}>
             COMPUTER SYSTEMS ENGINEER
           </div>
 
-          <h1 style={{ fontSize: 'clamp(2.4rem, 4.5vw, 3.8rem)', fontWeight: '900', letterSpacing: '-0.03em', lineHeight: '1.05', color: '#0f172a', margin: '0 0 10px 0' }}>
+          <h1 style={{ fontSize: 'clamp(2.2rem, 6vw, 3.8rem)', fontWeight: '900', letterSpacing: '-0.03em', lineHeight: '1.1', color: '#0f172a', margin: '0 0 10px 0' }}>
             Zabi Ullah
           </h1>
           
           <div style={{ width: '40px', height: '5px', backgroundColor: '#2563eb', borderRadius: '9999px', marginBottom: '16px' }}></div>
 
-          <p style={{ color: '#475569', fontSize: '15px', lineHeight: '1.65', fontWeight: '500', maxWidth: '480px', margin: '0 0 20px 0' }}>
+          <p style={{ color: '#475569', fontSize: '15px', lineHeight: '1.65', fontWeight: '500', maxWidth: '520px', margin: '0 0 20px 0' }}>
             Specializing in backend development with <strong style={{ color: '#0f172a' }}>Python &amp; C++</strong>, database management, high-concurrency systems, and advanced AI/ML diagnostic applications[cite: 1].
           </p>
 
           {/* Tags */}
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '24px' }}>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '5px 12px', fontSize: '11px', fontWeight: '700', borderRadius: '9999px', backgroundColor: '#eff6ff', color: '#1e40af', border: '1px solid #bfdbfe' }}>
-              <Terminal style={{ width: '12px', height: '12px' }} /> Python &amp; C++ Backend[cite: 1]
+              <Terminal style={{ width: '13px', height: '13px' }} /> Python &amp; C++ Backend[cite: 1]
             </span>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '5px 12px', fontSize: '11px', fontWeight: '700', borderRadius: '9999px', backgroundColor: '#faf5ff', color: '#7e22ce', border: '1px solid #e9d5ff' }}>
-              <BrainCircuit style={{ width: '12px', height: '12px' }} /> AI / ML Systems[cite: 1]
+              <BrainCircuit style={{ width: '13px', height: '13px' }} /> AI / ML Systems[cite: 1]
             </span>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '5px 12px', fontSize: '11px', fontWeight: '700', borderRadius: '9999px', backgroundColor: '#ecfdf5', color: '#047857', border: '1px solid #a7f3d0' }}>
-              <GraduationCap style={{ width: '12px', height: '12px' }} /> BUETK[cite: 1]
+              <GraduationCap style={{ width: '13px', height: '13px' }} /> BUETK[cite: 1]
             </span>
           </div>
 
-          {/* Action CTAs */}
+          {/* Action Buttons */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap', width: '100%' }}>
             <button
               onClick={() => openModal('projects')}
-              style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '11px 22px', borderRadius: '12px', backgroundColor: '#2563eb', color: '#ffffff', fontWeight: '700', fontSize: '13px', border: 'none', cursor: 'pointer', boxShadow: '0 6px 16px -3px rgba(37,99,235,0.35)' }}
+              style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '12px 24px', borderRadius: '12px', backgroundColor: '#2563eb', color: '#ffffff', fontWeight: '700', fontSize: '14px', border: 'none', cursor: 'pointer', boxShadow: '0 6px 16px -3px rgba(37,99,235,0.35)' }}
             >
-              View All 4 Projects <ArrowRight style={{ width: '15px', height: '15px' }} />
+              View All 4 Projects <ArrowRight style={{ width: '16px', height: '16px' }} />
             </button>
             <a
               href="/CV_Zabi Ullah.pdf"
               download="Zabi_Ullah_CV.pdf"
-              style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '11px 22px', borderRadius: '12px', backgroundColor: '#ffffff', border: '1.5px solid #cbd5e1', color: '#334155', fontWeight: '700', fontSize: '13px', textDecoration: 'none' }}
+              style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '12px 24px', borderRadius: '12px', backgroundColor: '#ffffff', border: '1.5px solid #cbd5e1', color: '#334155', fontWeight: '700', fontSize: '14px', textDecoration: 'none' }}
             >
-              Download CV <Download style={{ width: '15px', height: '15px', color: '#64748b' }} />
+              Download CV <Download style={{ width: '16px', height: '16px', color: '#64748b' }} />
             </a>
           </div>
-
         </div>
 
-        {/* Right Column: Properly Constrained Showcase Frame */}
-        <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '8px', boxSizing: 'border-box' }}>
-          <div style={{ width: '100%', maxWidth: '440px', maxHeight: '310px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '20px', overflow: 'hidden', border: '1px solid #e2e8f0', backgroundColor: '#ffffff', boxShadow: '0 10px 25px -10px rgba(0,0,0,0.06)' }}>
-            <img
-              src="/showcase.png"
-              alt="Workspace Overview"
-              style={{ width: '100%', height: 'auto', maxHeight: '300px', objectFit: 'contain', display: 'block' }}
-            />
-          </div>
+        {/* Workspace Mockup: Strictly Bound to Parent Width */}
+        <div style={{ width: '100%', maxWidth: '500px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <img
+            src="/showcase.png"
+            alt="Workspace"
+            style={{ width: '100%', maxWidth: '100%', height: 'auto', maxHeight: '280px', objectFit: 'contain', display: 'block', borderRadius: '16px' }}
+          />
         </div>
 
       </section>
@@ -161,7 +137,7 @@ export default function Home() {
       {/* 3. THREE FEATURE CARDS */}
       <section style={{ width: '100%', maxWidth: '1100px', margin: '16px auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
         
-        {/* Card 1: Tech Stack */}
+        {/* Card 1 */}
         <button
           onClick={() => openModal('skills')}
           style={{ padding: '20px', borderRadius: '16px', backgroundColor: '#ffffff', border: '1.5px solid #e2e8f0', boxShadow: '0 4px 12px rgba(0,0,0,0.02)', cursor: 'pointer', textAlign: 'left', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
@@ -181,7 +157,7 @@ export default function Home() {
           </div>
         </button>
 
-        {/* Card 2: Projects */}
+        {/* Card 2 */}
         <button
           onClick={() => openModal('projects')}
           style={{ padding: '20px', borderRadius: '16px', backgroundColor: '#ffffff', border: '1.5px solid #e2e8f0', boxShadow: '0 4px 12px rgba(0,0,0,0.02)', cursor: 'pointer', textAlign: 'left', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
@@ -201,7 +177,7 @@ export default function Home() {
           </div>
         </button>
 
-        {/* Card 3: Credentials */}
+        {/* Card 3 */}
         <button
           onClick={() => openModal('credentials')}
           style={{ padding: '20px', borderRadius: '16px', backgroundColor: '#ffffff', border: '1.5px solid #e2e8f0', boxShadow: '0 4px 12px rgba(0,0,0,0.02)', cursor: 'pointer', textAlign: 'left', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
@@ -233,7 +209,7 @@ export default function Home() {
             <Linkedin style={{ width: '16px', height: '16px' }} />
           </a>
           <a href="mailto:zbadini788@Gmail.com" style={{ width: '34px', height: '34px', borderRadius: '9999px', backgroundColor: '#ffffff', border: '1px solid #cbd5e1', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#e11d48', textDecoration: 'none' }}>
-            <Mail style={{ width: '16px', height: '16px' }} />
+            <Mail style={{ width: '18px', height: '18px' }} />
           </a>
         </div>
         <p style={{ fontSize: '11px', fontWeight: '600', color: '#94a3b8', margin: 0 }}>
@@ -243,8 +219,8 @@ export default function Home() {
 
       {/* 5. POPUP WINDOWS */}
       {activeModal && (
-        <div style={{ position: 'fixed', inset: 0, zIndex: 999, backgroundColor: 'rgba(15, 23, 42, 0.6)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '12px' }}>
-          <div style={{ position: 'relative', width: '100%', maxWidth: '640px', backgroundColor: '#ffffff', borderRadius: '20px', padding: '24px 28px', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', border: '1px solid #e2e8f0', maxHeight: '88vh', overflowY: 'auto' }}>
+        <div style={{ position: 'fixed', inset: 0, zIndex: 999, backgroundColor: 'rgba(15, 23, 42, 0.65)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px' }}>
+          <div style={{ position: 'relative', width: '100%', maxWidth: '640px', backgroundColor: '#ffffff', borderRadius: '20px', padding: '24px', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', border: '1.5px solid #e2e8f0', maxHeight: '88vh', overflowY: 'auto' }}>
             
             <button
               onClick={() => setActiveModal(null)}
@@ -465,10 +441,10 @@ export default function Home() {
                     <Phone style={{ width: '16px', height: '16px' }} /> +92 349 3233604[cite: 1]
                   </a>
                   <a href="https://www.linkedin.com/in/zabi-ullah-1969b3393" target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '12px 14px', borderRadius: '12px', backgroundColor: '#f8fafc', border: '1.5px solid #cbd5e1', textDecoration: 'none', color: '#0f172a', fontWeight: '700', fontSize: '13px' }}>
-                    <Linkedin style={{ width: '16px', height: '16px', color: '#0a66c2' }} /> linkedin.com/in/zabi-ullah-1969b3393[cite: 1]
+                    <Linkedin style={{ width: '16px', height: '16px' }} /> linkedin.com/in/zabi-ullah-1969b3393[cite: 1]
                   </a>
                   <a href="https://github.com/Zabiullah788" target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '12px 14px', borderRadius: '12px', backgroundColor: '#f8fafc', border: '1.5px solid #cbd5e1', textDecoration: 'none', color: '#0f172a', fontWeight: '700', fontSize: '13px' }}>
-                    <Github style={{ width: '16px', height: '16px', color: '#24292e' }} /> github.com/Zabiullah788[cite: 1]
+                    <Github style={{ width: '16px', height: '16px' }} /> github.com/Zabiullah788[cite: 1]
                   </a>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '12px 14px', borderRadius: '12px', backgroundColor: '#f8fafc', border: '1.5px solid #e2e8f0', color: '#475569', fontSize: '12px', fontWeight: '600' }}>
                     <MapPin style={{ width: '16px', height: '16px' }} /> Kili Sahibzada Nushki, Balochistan, Pakistan[cite: 1]
@@ -481,6 +457,6 @@ export default function Home() {
         </div>
       )}
 
-    </main>
+    </div>
   );
 }

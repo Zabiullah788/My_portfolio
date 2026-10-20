@@ -1,32 +1,13 @@
-import type { Metadata } from 'next';
-import { Inter, JetBrains_Mono } from 'next/font/google';
-import './globals.css';
+import type { Metadata, Viewport } from 'next';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
-const mono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono' });
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
-  title: 'Zabi Ullah Badini | Computer Systems Engineer & Software Developer',
-  description: 'Portfolio of Zabi Ullah Badini — Computer Systems Engineer specializing in Python, React Native, TypeScript, and high-performance software architectures.',
-  keywords: [
-    'Zabi Ullah',
-    'Zabi Ullah Badini',
-    'Computer Systems Engineer',
-    'Software Engineer Pakistan',
-    'Python Developer',
-    'React Native Developer'
-  ],
-  authors: [{ name: 'Zabi Ullah Badini' }],
-  creator: 'Zabi Ullah Badini',
-  verification: {
-    google: 'PASTE_YOUR_COPIED_CODE_HERE',
-  },
-  openGraph: {
-    title: 'Zabi Ullah Badini | Computer Systems Engineer',
-    description: 'Portfolio and engineering projects by Zabi Ullah Badini.',
-    type: 'website',
-    locale: 'en_US',
-  },
+  title: 'Zabi Ullah | Computer Systems Engineer',
+  description: 'Portfolio of Zabi Ullah - Backend & AI/ML Systems Engineer',
 };
 
 export default function RootLayout({
@@ -35,8 +16,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${mono.variable} scroll-smooth`}>
-      <body className="bg-[#f8fafc] text-slate-900 font-sans antialiased">
+    <html lang="en">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </head>
+      <body style={{ margin: 0, padding: 0, backgroundColor: '#f8fafc', color: '#0f172a' }}>
         {children}
       </body>
     </html>
