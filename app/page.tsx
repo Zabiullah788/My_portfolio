@@ -15,181 +15,206 @@ import {
   Github, 
   BrainCircuit, 
   Award,
-  Terminal
+  Terminal,
+  Menu
 } from 'lucide-react';
 
 export default function Home() {
   const [activeModal, setActiveModal] = useState<string | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const openModal = (id: string) => {
+    setActiveModal(id);
+    setMobileMenuOpen(false);
+  };
 
   return (
-    <main style={{ minHeight: '100vh', backgroundColor: '#f8fafc', color: '#0f172a', fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif', padding: '24px 32px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxSizing: 'border-box' }}>
+    <main style={{ minHeight: '100vh', backgroundColor: '#f8fafc', color: '#0f172a', fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }} className="flex flex-col justify-between p-4 sm:p-8 md:p-12 box-border relative">
       
       {/* 1. TOP HEADER NAVIGATION */}
-      <header style={{ width: '100%', maxWidth: '1200px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingBottom: '20px' }}>
+      <header className="w-full max-w-6xl mx-auto flex items-center justify-between pb-4 sm:pb-6 relative z-30">
         
         {/* Available For Work Pill */}
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 14px', borderRadius: '9999px', backgroundColor: '#ecfdf5', border: '1.5px solid #a7f3d0' }}>
-          <span style={{ width: '8px', height: '8px', borderRadius: '9999px', backgroundColor: '#10b981', display: 'inline-block' }}></span>
-          <span style={{ fontSize: '12px', fontWeight: '700', color: '#047857' }}>Available for Work</span>
+        <div style={{ backgroundColor: '#ecfdf5', borderColor: '#a7f3d0' }} className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border">
+          <span style={{ backgroundColor: '#10b981' }} className="w-2 h-2 rounded-full inline-block"></span>
+          <span style={{ color: '#047857' }} className="text-xs font-bold">Available for Work</span>
         </div>
 
-        {/* Center Nav Links & Right Actions */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '28px' }}>
-          <nav style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
-            <button onClick={() => setActiveModal('about')} style={{ background: 'none', border: 'none', fontSize: '14px', fontWeight: '600', color: '#475569', cursor: 'pointer' }}>About Me</button>
-            <button onClick={() => setActiveModal('projects')} style={{ background: 'none', border: 'none', fontSize: '14px', fontWeight: '600', color: '#475569', cursor: 'pointer' }}>Projects</button>
-            <button onClick={() => setActiveModal('skills')} style={{ background: 'none', border: 'none', fontSize: '14px', fontWeight: '600', color: '#475569', cursor: 'pointer' }}>Skills</button>
-            <button onClick={() => setActiveModal('credentials')} style={{ background: 'none', border: 'none', fontSize: '14px', fontWeight: '600', color: '#475569', cursor: 'pointer' }}>Certifications</button>
+        {/* Desktop Nav Links & Actions */}
+        <div className="flex items-center gap-4 sm:gap-7">
+          <nav className="hidden md:flex items-center gap-6">
+            <button onClick={() => openModal('about')} className="bg-transparent border-0 text-sm font-semibold text-slate-600 hover:text-blue-600 cursor-pointer transition-colors">About Me</button>
+            <button onClick={() => openModal('projects')} className="bg-transparent border-0 text-sm font-semibold text-slate-600 hover:text-blue-600 cursor-pointer transition-colors">Projects</button>
+            <button onClick={() => openModal('skills')} className="bg-transparent border-0 text-sm font-semibold text-slate-600 hover:text-blue-600 cursor-pointer transition-colors">Skills</button>
+            <button onClick={() => openModal('credentials')} className="bg-transparent border-0 text-sm font-semibold text-slate-600 hover:text-blue-600 cursor-pointer transition-colors">Certifications</button>
           </nav>
 
           <button
-            onClick={() => setActiveModal('contact')}
-            style={{ padding: '8px 24px', fontSize: '14px', fontWeight: '700', borderRadius: '9999px', background: 'linear-gradient(135deg, #2563eb, #4f46e5)', color: '#ffffff', border: 'none', cursor: 'pointer', boxShadow: '0 4px 12px rgba(37,99,235,0.25)' }}
+            onClick={() => openModal('contact')}
+            style={{ background: 'linear-gradient(135deg, #2563eb, #4f46e5)', boxShadow: '0 4px 12px rgba(37,99,235,0.25)' }}
+            className="hidden sm:inline-block px-5 py-2 text-sm font-bold rounded-full text-white border-0 cursor-pointer hover:opacity-95 transition-opacity"
           >
             Contact
           </button>
 
           {/* Profile Picture */}
-          <div style={{ position: 'relative', width: '44px', height: '44px', minWidth: '44px', borderRadius: '9999px', border: '2px solid #ffffff', boxShadow: '0 2px 8px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
+          <div className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-full border-2 border-white shadow-sm overflow-hidden flex-shrink-0">
             <img
               src="/profile.jpg"
               alt="Zabi Ullah"
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              className="w-full h-full object-cover"
               onError={(e) => {
                 (e.target as HTMLElement).style.display = 'none';
               }}
             />
-            <span style={{ position: 'absolute', bottom: '1px', right: '1px', width: '10px', height: '10px', backgroundColor: '#10b981', border: '2px solid #ffffff', borderRadius: '9999px' }}></span>
+            <span style={{ backgroundColor: '#10b981' }} className="absolute bottom-0.5 right-0.5 w-2.5 h-2.5 border-2 border-white rounded-full"></span>
           </div>
+
+          {/* Mobile Menu Hamburger */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 rounded-xl bg-white border border-slate-200 text-slate-700 cursor-pointer"
+            aria-label="Toggle Navigation"
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
         </div>
       </header>
 
-      {/* 2. HERO SHOWCASE (2-COLUMN GRID) */}
-      <section style={{ width: '100%', maxWidth: '1200px', margin: '20px auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '48px', alignItems: 'center' }}>
+      {/* Mobile Dropdown Menu */}
+      {mobileMenuOpen && (
+        <div className="md:hidden w-full max-w-6xl mx-auto mb-6 p-4 rounded-2xl bg-white border border-slate-200 shadow-lg flex flex-col gap-3 z-30">
+          <button onClick={() => openModal('about')} className="text-left py-2 px-3 text-sm font-semibold text-slate-700 hover:bg-slate-50 rounded-lg">About Me</button>
+          <button onClick={() => openModal('projects')} className="text-left py-2 px-3 text-sm font-semibold text-slate-700 hover:bg-slate-50 rounded-lg">Projects</button>
+          <button onClick={() => openModal('skills')} className="text-left py-2 px-3 text-sm font-semibold text-slate-700 hover:bg-slate-50 rounded-lg">Skills</button>
+          <button onClick={() => openModal('credentials')} className="text-left py-2 px-3 text-sm font-semibold text-slate-700 hover:bg-slate-50 rounded-lg">Certifications</button>
+          <button onClick={() => openModal('contact')} className="w-full py-2.5 text-center text-sm font-bold text-white bg-blue-600 rounded-xl">Contact Me</button>
+        </div>
+      )}
+
+      {/* 2. HERO SHOWCASE (RESPONSIVE GRID) */}
+      <section className="w-full max-w-6xl mx-auto my-4 sm:my-8 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
         
         {/* Left Side: Bio & Text */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+        <div className="lg:col-span-6 flex flex-col items-start text-left">
           
-          {/* Subtitle Text */}
-          <div style={{ color: '#2563eb', fontWeight: '800', fontSize: '13px', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: '14px' }}>
+          <div style={{ color: '#2563eb' }} className="font-extrabold text-xs sm:text-sm tracking-wider uppercase mb-3">
             COMPUTER SYSTEMS ENGINEER
           </div>
 
-          {/* Large Name */}
-          <h1 style={{ fontSize: 'clamp(2.8rem, 5vw, 4.5rem)', fontWeight: '900', letterSpacing: '-0.03em', lineHeight: '1.05', color: '#0f172a', margin: '0 0 10px 0' }}>
+          <h1 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-slate-900 leading-none mb-3">
             Zabi Ullah
           </h1>
           
-          {/* Blue Accent Bar */}
-          <div style={{ width: '48px', height: '6px', backgroundColor: '#2563eb', borderRadius: '9999px', marginBottom: '20px' }}></div>
+          <div style={{ backgroundColor: '#2563eb' }} className="w-12 h-1.5 rounded-full mb-5"></div>
 
-          {/* Description */}
-          <p style={{ color: '#475569', fontSize: '16px', lineHeight: '1.7', fontWeight: '500', maxWidth: '520px', margin: '0 0 24px 0' }}>
-            Specializing in backend development with <strong style={{ color: '#0f172a' }}>Python &amp; C++</strong>, database management, high-concurrency systems, and advanced AI/ML diagnostic applications.
+          <p className="text-slate-600 text-sm sm:text-base md:text-lg leading-relaxed font-medium max-w-xl mb-6">
+            Specializing in backend development with <strong className="text-slate-900">Python &amp; C++</strong>, database management, high-concurrency systems, and advanced AI/ML diagnostic applications.
           </p>
 
           {/* Tags */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '32px' }}>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '6px 14px', fontSize: '12px', fontWeight: '700', borderRadius: '9999px', backgroundColor: '#eff6ff', color: '#1e40af', border: '1px solid #bfdbfe' }}>
-              <Terminal style={{ width: '13px', height: '13px' }} /> Python &amp; C++ Backend
+          <div className="flex flex-wrap gap-2 mb-8">
+            <span style={{ backgroundColor: '#eff6ff', borderColor: '#bfdbfe', color: '#1e40af' }} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold border">
+              <Terminal className="w-3.5 h-3.5" /> Python &amp; C++ Backend
             </span>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '6px 14px', fontSize: '12px', fontWeight: '700', borderRadius: '9999px', backgroundColor: '#faf5ff', color: '#7e22ce', border: '1px solid #e9d5ff' }}>
-              <BrainCircuit style={{ width: '13px', height: '13px' }} /> AI / ML Systems
+            <span style={{ backgroundColor: '#faf5ff', borderColor: '#e9d5ff', color: '#7e22ce' }} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold border">
+              <BrainCircuit className="w-3.5 h-3.5" /> AI / ML Systems
             </span>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '6px 14px', fontSize: '12px', fontWeight: '700', borderRadius: '9999px', backgroundColor: '#ecfdf5', color: '#047857', border: '1px solid #a7f3d0' }}>
-              <GraduationCap style={{ width: '13px', height: '13px' }} /> BUETK
+            <span style={{ backgroundColor: '#ecfdf5', borderColor: '#a7f3d0', color: '#047857' }} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold border">
+              <GraduationCap className="w-3.5 h-3.5" /> BUETK
             </span>
           </div>
 
           {/* Main Action Buttons */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
             <button
-              onClick={() => setActiveModal('projects')}
-              style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px', borderRadius: '12px', backgroundColor: '#2563eb', color: '#ffffff', fontWeight: '700', fontSize: '14px', border: 'none', cursor: 'pointer', boxShadow: '0 8px 20px -4px rgba(37,99,235,0.35)' }}
+              onClick={() => openModal('projects')}
+              style={{ backgroundColor: '#2563eb', boxShadow: '0 8px 20px -4px rgba(37,99,235,0.35)' }}
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-white font-bold text-sm border-0 cursor-pointer hover:bg-blue-700 transition-colors"
             >
-              View All 4 Projects <ArrowRight style={{ width: '16px', height: '16px' }} />
+              View All 4 Projects <ArrowRight className="w-4 h-4" />
             </button>
             <a
               href="/CV_Zabi Ullah.pdf"
               download="Zabi_Ullah_CV.pdf"
-              style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px', borderRadius: '12px', backgroundColor: '#ffffff', border: '1.5px solid #cbd5e1', color: '#334155', fontWeight: '700', fontSize: '14px', textDecoration: 'none', boxShadow: '0 2px 6px rgba(0,0,0,0.04)' }}
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-white border border-slate-300 text-slate-700 font-bold text-sm no-underline shadow-sm hover:bg-slate-50 transition-colors"
             >
-              Download CV <Download style={{ width: '16px', height: '16px', color: '#64748b' }} />
+              Download CV <Download className="w-4 h-4 text-slate-500" />
             </a>
           </div>
 
         </div>
 
         {/* Right Side: Showcase Image Container */}
-        <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div className="lg:col-span-6 w-full flex items-center justify-center">
           <img
             src="/showcase.png"
             alt="Development Environment"
-            style={{ width: '100%', maxWidth: '540px', height: 'auto', borderRadius: '24px', display: 'block', objectFit: 'contain' }}
+            className="w-full max-w-md lg:max-w-xl h-auto rounded-2xl shadow-sm object-contain"
           />
         </div>
 
       </section>
 
       {/* 3. THREE BOTTOM FEATURE CARDS */}
-      <section style={{ width: '100%', maxWidth: '1200px', margin: '10px auto 20px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
+      <section className="w-full max-w-6xl mx-auto my-6 grid grid-cols-1 md:grid-cols-3 gap-5">
         
         {/* Card 1: Tech Stack */}
         <button
-          onClick={() => setActiveModal('skills')}
-          style={{ padding: '24px', borderRadius: '20px', backgroundColor: '#ffffff', border: '1.5px solid #e2e8f0', boxShadow: '0 4px 12px rgba(0,0,0,0.03)', cursor: 'pointer', textAlign: 'left', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
+          onClick={() => openModal('skills')}
+          className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition-shadow text-left flex flex-col justify-between cursor-pointer"
         >
           <div>
-            <div style={{ width: '46px', height: '46px', borderRadius: '12px', backgroundColor: '#eff6ff', color: '#2563eb', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
-              <Code2 style={{ width: '24px', height: '24px' }} />
+            <div style={{ backgroundColor: '#eff6ff', color: '#2563eb' }} className="w-11 h-11 rounded-xl flex items-center justify-center mb-4">
+              <Code2 className="w-6 h-6" />
             </div>
-            <h3 style={{ fontSize: '18px', fontWeight: '800', color: '#0f172a', margin: '0 0 2px 0' }}>Tech Stack</h3>
-            <p style={{ fontSize: '11px', fontWeight: '800', color: '#2563eb', textTransform: 'uppercase', margin: '0 0 8px 0' }}>Languages &amp; Tools</p>
-            <p style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.6', margin: 0 }}>
+            <h3 className="text-lg font-extrabold text-slate-900 mb-0.5">Tech Stack</h3>
+            <p style={{ color: '#2563eb' }} className="text-xs font-extrabold uppercase tracking-wide mb-2">Languages &amp; Tools</p>
+            <p className="text-xs text-slate-500 leading-relaxed m-0">
               Python, C++, SQL, TensorFlow, PyTorch, Web3, DLD, Git, and Databases.
             </p>
           </div>
-          <div style={{ marginTop: '20px', fontSize: '12px', fontWeight: '800', color: '#2563eb' }}>
+          <div style={{ color: '#2563eb' }} className="mt-5 text-xs font-extrabold">
             Explore Skills →
           </div>
         </button>
 
         {/* Card 2: Projects */}
         <button
-          onClick={() => setActiveModal('projects')}
-          style={{ padding: '24px', borderRadius: '20px', backgroundColor: '#ffffff', border: '1.5px solid #e2e8f0', boxShadow: '0 4px 12px rgba(0,0,0,0.03)', cursor: 'pointer', textAlign: 'left', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
+          onClick={() => openModal('projects')}
+          className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition-shadow text-left flex flex-col justify-between cursor-pointer"
         >
           <div>
-            <div style={{ width: '46px', height: '46px', borderRadius: '12px', backgroundColor: '#fdf2f8', color: '#db2777', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
-              <FolderGit2 style={{ width: '24px', height: '24px' }} />
+            <div style={{ backgroundColor: '#fdf2f8', color: '#db2777' }} className="w-11 h-11 rounded-xl flex items-center justify-center mb-4">
+              <FolderGit2 className="w-6 h-6" />
             </div>
-            <h3 style={{ fontSize: '18px', fontWeight: '800', color: '#0f172a', margin: '0 0 2px 0' }}>Projects (4)</h3>
-            <p style={{ fontSize: '11px', fontWeight: '800', color: '#db2777', textTransform: 'uppercase', margin: '0 0 8px 0' }}>Applied Systems</p>
-            <p style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.6', margin: 0 }}>
+            <h3 className="text-lg font-extrabold text-slate-900 mb-0.5">Projects (4)</h3>
+            <p style={{ color: '#db2777' }} className="text-xs font-extrabold uppercase tracking-wide mb-2">Applied Systems</p>
+            <p className="text-xs text-slate-500 leading-relaxed m-0">
               Crypto Sniper Bot, AI Pneumonia Detection, Parking DLD, and Echo AI.
             </p>
           </div>
-          <div style={{ marginTop: '20px', fontSize: '12px', fontWeight: '800', color: '#db2777' }}>
+          <div style={{ color: '#db2777' }} className="mt-5 text-xs font-extrabold">
             View All 4 Projects →
           </div>
         </button>
 
         {/* Card 3: Credentials */}
         <button
-          onClick={() => setActiveModal('credentials')}
-          style={{ padding: '24px', borderRadius: '20px', backgroundColor: '#ffffff', border: '1.5px solid #e2e8f0', boxShadow: '0 4px 12px rgba(0,0,0,0.03)', cursor: 'pointer', textAlign: 'left', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
+          onClick={() => openModal('credentials')}
+          className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition-shadow text-left flex flex-col justify-between cursor-pointer"
         >
           <div>
-            <div style={{ width: '46px', height: '46px', borderRadius: '12px', backgroundColor: '#ecfdf5', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
-              <Award style={{ width: '24px', height: '24px' }} />
+            <div style={{ backgroundColor: '#ecfdf5', color: '#059669' }} className="w-11 h-11 rounded-xl flex items-center justify-center mb-4">
+              <Award className="w-6 h-6" />
             </div>
-            <h3 style={{ fontSize: '18px', fontWeight: '800', color: '#0f172a', margin: '0 0 2px 0' }}>Credentials</h3>
-            <p style={{ fontSize: '11px', fontWeight: '800', color: '#059669', textTransform: 'uppercase', margin: '0 0 8px 0' }}>Education &amp; Training</p>
-            <p style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.6', margin: 0 }}>
+            <h3 className="text-lg font-extrabold text-slate-900 mb-0.5">Credentials</h3>
+            <p style={{ color: '#059669' }} className="text-xs font-extrabold uppercase tracking-wide mb-2">Education &amp; Training</p>
+            <p className="text-xs text-slate-500 leading-relaxed m-0">
               BUETK Engineering Degree, ISPR, Arch Tech, Code Alpha &amp; Top Performer Generative AI.
             </p>
           </div>
-          <div style={{ marginTop: '20px', fontSize: '12px', fontWeight: '800', color: '#059669' }}>
+          <div style={{ color: '#059669' }} className="mt-5 text-xs font-extrabold">
             View Credentials &amp; History →
           </div>
         </button>
@@ -197,131 +222,128 @@ export default function Home() {
       </section>
 
       {/* 4. FOOTER */}
-      <footer style={{ width: '100%', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', paddingTop: '16px', borderTop: '1px solid #e2e8f0' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-          <a href="https://github.com/Zabiullah788" target="_blank" rel="noreferrer" style={{ width: '36px', height: '36px', borderRadius: '9999px', backgroundColor: '#ffffff', border: '1px solid #cbd5e1', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#334155', textDecoration: 'none' }}>
-            <Github style={{ width: '18px', height: '18px' }} />
+      <footer className="w-full max-w-6xl mx-auto flex flex-col items-center gap-3 pt-6 border-t border-slate-200">
+        <div className="flex items-center gap-4">
+          <a href="https://github.com/Zabiullah788" target="_blank" rel="noreferrer" className="w-9 h-9 rounded-full bg-white border border-slate-300 flex items-center justify-center text-slate-700 no-underline shadow-sm hover:text-slate-900">
+            <Github className="w-4 h-4" />
           </a>
-          <a href="https://www.linkedin.com/in/zabi-ullah-1969b3393" target="_blank" rel="noreferrer" style={{ width: '36px', height: '36px', borderRadius: '9999px', backgroundColor: '#ffffff', border: '1px solid #cbd5e1', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#0a66c2', textDecoration: 'none' }}>
-            <Linkedin style={{ width: '18px', height: '18px' }} />
+          <a href="https://www.linkedin.com/in/zabi-ullah-1969b3393" target="_blank" rel="noreferrer" className="w-9 h-9 rounded-full bg-white border border-slate-300 flex items-center justify-center text-blue-600 no-underline shadow-sm hover:text-blue-700">
+            <Linkedin className="w-4 h-4" />
           </a>
-          <a href="mailto:zbadini788@Gmail.com" style={{ width: '36px', height: '36px', borderRadius: '9999px', backgroundColor: '#ffffff', border: '1px solid #cbd5e1', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#e11d48', textDecoration: 'none' }}>
-            <Mail style={{ width: '18px', height: '18px' }} />
+          <a href="mailto:zbadini788@Gmail.com" className="w-9 h-9 rounded-full bg-white border border-slate-300 flex items-center justify-center text-rose-600 no-underline shadow-sm hover:text-rose-700">
+            <Mail className="w-4 h-4" />
           </a>
         </div>
-        <p style={{ fontSize: '12px', fontWeight: '600', color: '#94a3b8', margin: 0 }}>
+        <p className="text-xs font-semibold text-slate-400 m-0">
           © {new Date().getFullYear()} Zabi Ullah • Computer Systems Engineer
         </p>
       </footer>
 
       {/* 5. POPUP WINDOWS */}
       {activeModal && (
-        <div style={{ position: 'fixed', inset: 0, zIndex: 999, backgroundColor: 'rgba(15, 23, 42, 0.65)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px' }}>
-          <div style={{ position: 'relative', width: '100%', maxWidth: '720px', backgroundColor: '#ffffff', borderRadius: '24px', padding: '32px', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', border: '1.5px solid #e2e8f0', maxHeight: '88vh', overflowY: 'auto' }}>
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
+          <div className="relative w-full max-w-2xl bg-white rounded-3xl p-5 sm:p-8 shadow-2xl border border-slate-200 max-h-[90vh] overflow-y-auto">
             
-            {/* Modal Close Button */}
             <button
               onClick={() => setActiveModal(null)}
-              style={{ position: 'absolute', top: '20px', right: '20px', padding: '8px', borderRadius: '9999px', backgroundColor: '#f1f5f9', border: 'none', color: '#475569', cursor: 'pointer' }}
+              className="absolute top-4 right-4 sm:top-5 sm:right-5 p-2 rounded-full bg-slate-100 border-0 text-slate-600 hover:bg-slate-200 cursor-pointer transition-colors"
             >
-              <X style={{ width: '20px', height: '20px' }} />
+              <X className="w-5 h-5" />
             </button>
 
             {/* MODAL 1: PROJECTS */}
             {activeModal === 'projects' && (
               <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
-                  <FolderGit2 style={{ width: '24px', height: '24px', color: '#db2777' }} />
-                  <h2 style={{ fontSize: '1.5rem', fontWeight: '900', color: '#0f172a' }}>Applied Technical Projects (4)</h2>
+                <div className="flex items-center gap-2.5 mb-1.5">
+                  <FolderGit2 className="w-6 h-6 text-pink-600" />
+                  <h2 className="text-xl sm:text-2xl font-black text-slate-900">Applied Technical Projects (4)</h2>
                 </div>
-                <p style={{ fontSize: '13px', color: '#64748b', marginBottom: '22px' }}>Complete portfolio of verified engineering implementations.</p>
+                <p className="text-xs text-slate-500 mb-5">Complete portfolio of verified engineering implementations.</p>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  
+                <div className="flex flex-col gap-4">
                   {/* Project 1 */}
-                  <div style={{ padding: '18px', borderRadius: '16px', backgroundColor: '#f8fafc', border: '1.5px solid #e2e8f0' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '6px' }}>
+                  <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200">
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1 mb-2">
                       <div>
-                        <span style={{ fontSize: '11px', fontWeight: '800', color: '#1e40af', textTransform: 'uppercase' }}>1. Final Year Project</span>
-                        <h3 style={{ fontWeight: '800', fontSize: '16px', color: '#0f172a', marginTop: '2px' }}>High-Frequency Crypto Sniper Bot Development</h3>
+                        <span className="text-[11px] font-extrabold text-blue-700 uppercase">1. Final Year Project</span>
+                        <h3 className="font-extrabold text-sm sm:text-base text-slate-900 mt-0.5">High-Frequency Crypto Sniper Bot Development</h3>
                       </div>
-                      <span style={{ fontSize: '11px', fontWeight: '700', padding: '3px 8px', borderRadius: '6px', backgroundColor: '#dbeafe', color: '#1e40af' }}>Sub-50ms Execution</span>
+                      <span className="self-start text-[11px] font-bold px-2.5 py-0.5 rounded bg-blue-100 text-blue-800">Sub-50ms Execution</span>
                     </div>
-                    <ul style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6', margin: '0 0 10px 0', paddingLeft: '18px' }}>
+                    <ul className="text-xs sm:text-sm text-slate-600 leading-relaxed m-0 mb-3 pl-4 list-disc space-y-1">
                       <li>Engineered a low-latency algorithmic trading bot utilizing Python and Web3 to monitor memecoin transactions and execute trades on Ethereum.</li>
                       <li>Achieved sub-50ms trade execution speed by optimizing connection protocols and minimizing transactional overhead.</li>
                       <li>Designed a secure, indexed data schema to log trade history, market feeds, and performance metrics using efficient Database Management principles.</li>
                     </ul>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                    <div className="flex flex-wrap gap-1.5">
                       {['Python', 'Web3', 'Ethereum', 'Algorithmic Trading', 'Database Management', 'High-Concurrency'].map(t => (
-                        <span key={t} style={{ padding: '3px 8px', fontSize: '11px', fontWeight: '700', borderRadius: '6px', backgroundColor: '#ffffff', border: '1px solid #cbd5e1', color: '#334155' }}>{t}</span>
+                        <span key={t} className="px-2 py-0.5 text-[11px] font-bold rounded bg-white border border-slate-300 text-slate-700">{t}</span>
                       ))}
                     </div>
                   </div>
 
                   {/* Project 2 */}
-                  <div style={{ padding: '18px', borderRadius: '16px', backgroundColor: '#f8fafc', border: '1.5px solid #e2e8f0' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '6px' }}>
+                  <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200">
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1 mb-2">
                       <div>
-                        <span style={{ fontSize: '11px', fontWeight: '800', color: '#047857', textTransform: 'uppercase' }}>2. Healthcare AI / ML</span>
-                        <h3 style={{ fontWeight: '800', fontSize: '16px', color: '#0f172a', marginTop: '2px' }}>AI-Based Pneumonia Detection for Doctor's Assistance</h3>
+                        <span className="text-[11px] font-extrabold text-emerald-700 uppercase">2. Healthcare AI / ML</span>
+                        <h3 className="font-extrabold text-sm sm:text-base text-slate-900 mt-0.5">AI-Based Pneumonia Detection for Doctor's Assistance</h3>
                       </div>
-                      <span style={{ fontSize: '11px', fontWeight: '700', padding: '3px 8px', borderRadius: '6px', backgroundColor: '#d1fae5', color: '#065f46' }}>97.2% Accuracy</span>
+                      <span className="self-start text-[11px] font-bold px-2.5 py-0.5 rounded bg-emerald-100 text-emerald-800">97.2% Accuracy</span>
                     </div>
-                    <ul style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6', margin: '0 0 10px 0', paddingLeft: '18px' }}>
+                    <ul className="text-xs sm:text-sm text-slate-600 leading-relaxed m-0 mb-3 pl-4 list-disc space-y-1">
                       <li>Developed and trained a deep Convolutional Neural Network (CNN) using TensorFlow and PyTorch to classify X-ray images for pneumonia diagnosis.</li>
                       <li>Achieved 97.2% validation accuracy, improving diagnostic support in simulated clinical workflows.</li>
                       <li>Conducted data preprocessing and augmentation with NumPy/Pandas and integrated model into a functional API prototype for real-time inference.</li>
                     </ul>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                    <div className="flex flex-wrap gap-1.5">
                       {['TensorFlow', 'PyTorch', 'CNN', 'NumPy', 'Pandas', 'Medical AI API'].map(t => (
-                        <span key={t} style={{ padding: '3px 8px', fontSize: '11px', fontWeight: '700', borderRadius: '6px', backgroundColor: '#ffffff', border: '1px solid #cbd5e1', color: '#334155' }}>{t}</span>
+                        <span key={t} className="px-2 py-0.5 text-[11px] font-bold rounded bg-white border border-slate-300 text-slate-700">{t}</span>
                       ))}
                     </div>
                   </div>
 
                   {/* Project 3 */}
-                  <div style={{ padding: '18px', borderRadius: '16px', backgroundColor: '#f8fafc', border: '1.5px solid #e2e8f0' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '6px' }}>
+                  <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200">
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1 mb-2">
                       <div>
-                        <span style={{ fontSize: '11px', fontWeight: '800', color: '#b45309', textTransform: 'uppercase' }}>3. Hardware &amp; Embedded (DLD)</span>
-                        <h3 style={{ fontWeight: '800', fontSize: '16px', color: '#0f172a', marginTop: '2px' }}>Automatic Car Parking System Implementation</h3>
+                        <span className="text-[11px] font-extrabold text-amber-700 uppercase">3. Hardware &amp; Embedded (DLD)</span>
+                        <h3 className="font-extrabold text-sm sm:text-base text-slate-900 mt-0.5">Automatic Car Parking System Implementation</h3>
                       </div>
-                      <span style={{ fontSize: '11px', fontWeight: '700', padding: '3px 8px', borderRadius: '6px', backgroundColor: '#fef3c7', color: '#92400e' }}>Hardware DLD</span>
+                      <span className="self-start text-[11px] font-bold px-2.5 py-0.5 rounded bg-amber-100 text-amber-800">Hardware DLD</span>
                     </div>
-                    <ul style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6', margin: '0 0 10px 0', paddingLeft: '18px' }}>
+                    <ul className="text-xs sm:text-sm text-slate-600 leading-relaxed m-0 mb-3 pl-4 list-disc space-y-1">
                       <li>Designed and implemented complete control logic for an automated parking garage using Digital Logic Design (DLD) and C for microcontrollers.</li>
                       <li>Programmed the system to process real-time sensor inputs, direct vehicle flow, and optimize space allocation autonomously.</li>
                       <li>Simulated and verified the core state machine, ensuring reliable, error-free operation under heavy load.</li>
                     </ul>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                    <div className="flex flex-wrap gap-1.5">
                       {['C', 'Microcontrollers', 'Digital Logic Design', 'Hardware Simulation', 'State Machines'].map(t => (
-                        <span key={t} style={{ padding: '3px 8px', fontSize: '11px', fontWeight: '700', borderRadius: '6px', backgroundColor: '#ffffff', border: '1px solid #cbd5e1', color: '#334155' }}>{t}</span>
+                        <span key={t} className="px-2 py-0.5 text-[11px] font-bold rounded bg-white border border-slate-300 text-slate-700">{t}</span>
                       ))}
                     </div>
                   </div>
 
                   {/* Project 4 */}
-                  <div style={{ padding: '18px', borderRadius: '16px', backgroundColor: '#f8fafc', border: '1.5px solid #e2e8f0' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '6px' }}>
+                  <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200">
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1 mb-2">
                       <div>
-                        <span style={{ fontSize: '11px', fontWeight: '800', color: '#7e22ce', textTransform: 'uppercase' }}>4. Mobile &amp; Multimodal Speech</span>
-                        <h3 style={{ fontWeight: '800', fontSize: '16px', color: '#0f172a', marginTop: '2px' }}>Echo AI: Advanced Multimodal TTS &amp; Voice Cloning System</h3>
+                        <span className="text-[11px] font-extrabold text-purple-700 uppercase">4. Mobile &amp; Multimodal Speech</span>
+                        <h3 className="font-extrabold text-sm sm:text-base text-slate-900 mt-0.5">Echo AI: Advanced Multimodal TTS &amp; Voice Cloning System</h3>
                       </div>
-                      <span style={{ fontSize: '11px', fontWeight: '700', padding: '3px 8px', borderRadius: '6px', backgroundColor: '#f3e8ff', color: '#7e22ce' }}>Mobile App</span>
+                      <span className="self-start text-[11px] font-bold px-2.5 py-0.5 rounded bg-purple-100 text-purple-800">Mobile App</span>
                     </div>
-                    <ul style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6', margin: '0 0 10px 0', paddingLeft: '18px' }}>
+                    <ul className="text-xs sm:text-sm text-slate-600 leading-relaxed m-0 mb-3 pl-4 list-disc space-y-1">
                       <li>Engineered a dual-engine speech synthesis platform combining API integration with decentralized cloud-based inference.</li>
                       <li>Architected a hybrid backend utilizing the Gemini API for text-to-speech alongside a custom Hugging Face server deployment.</li>
                       <li>Implemented voice cloning technology replicating vocal nuances across English and multiple other languages with low-latency orchestration.</li>
                     </ul>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                    <div className="flex flex-wrap gap-1.5">
                       {['Gemini API', 'Hugging Face', 'Voice Cloning', 'Python', 'FastAPI', 'Cloud Inference'].map(t => (
-                        <span key={t} style={{ padding: '3px 8px', fontSize: '11px', fontWeight: '700', borderRadius: '6px', backgroundColor: '#ffffff', border: '1px solid #cbd5e1', color: '#334155' }}>{t}</span>
+                        <span key={t} className="px-2 py-0.5 text-[11px] font-bold rounded bg-white border border-slate-300 text-slate-700">{t}</span>
                       ))}
                     </div>
                   </div>
-
                 </div>
               </div>
             )}
@@ -329,50 +351,48 @@ export default function Home() {
             {/* MODAL 2: SKILLS */}
             {activeModal === 'skills' && (
               <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
-                  <Code2 style={{ width: '24px', height: '24px', color: '#2563eb' }} />
-                  <h2 style={{ fontSize: '1.5rem', fontWeight: '900', color: '#0f172a' }}>Technical Proficiency</h2>
+                <div className="flex items-center gap-2.5 mb-1.5">
+                  <Code2 className="w-6 h-6 text-blue-600" />
+                  <h2 className="text-xl sm:text-2xl font-black text-slate-900">Technical Proficiency</h2>
                 </div>
-                <p style={{ fontSize: '13px', color: '#64748b', marginBottom: '22px' }}>Comprehensive toolsets and programming skills.</p>
+                <p className="text-xs text-slate-500 mb-5">Comprehensive toolsets and programming skills.</p>
                 
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '14px' }}>
-                  
-                  <div style={{ padding: '16px', borderRadius: '14px', backgroundColor: '#f8fafc', border: '1px solid #e2e8f0' }}>
-                    <h3 style={{ fontWeight: '800', color: '#1e40af', fontSize: '13px', marginBottom: '10px', textTransform: 'uppercase' }}>Languages &amp; Core</h3>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                  <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                    <h3 className="font-bold text-blue-700 text-xs uppercase mb-2">Languages &amp; Core</h3>
+                    <div className="flex flex-wrap gap-1.5">
                       {['Python', 'C++', 'C (Microcontrollers)', 'SQL', 'Web3 / Solidity'].map((skill) => (
-                        <span key={skill} style={{ padding: '5px 10px', fontSize: '12px', fontWeight: '700', borderRadius: '8px', backgroundColor: '#ffffff', border: '1px solid #cbd5e1', color: '#1e293b' }}>{skill}</span>
+                        <span key={skill} className="px-2.5 py-1 text-xs font-semibold rounded-md bg-white border border-slate-300 text-slate-800">{skill}</span>
                       ))}
                     </div>
                   </div>
 
-                  <div style={{ padding: '16px', borderRadius: '14px', backgroundColor: '#f8fafc', border: '1px solid #e2e8f0' }}>
-                    <h3 style={{ fontWeight: '800', color: '#7e22ce', fontSize: '13px', marginBottom: '10px', textTransform: 'uppercase' }}>AI / ML &amp; Data Science</h3>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                  <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                    <h3 className="font-bold text-purple-700 text-xs uppercase mb-2">AI / ML &amp; Data Science</h3>
+                    <div className="flex flex-wrap gap-1.5">
                       {['TensorFlow', 'PyTorch', 'scikit-learn', 'NumPy', 'Pandas', 'CNN Architectures', 'LLM Implementation'].map((skill) => (
-                        <span key={skill} style={{ padding: '5px 10px', fontSize: '12px', fontWeight: '700', borderRadius: '8px', backgroundColor: '#ffffff', border: '1px solid #cbd5e1', color: '#1e293b' }}>{skill}</span>
+                        <span key={skill} className="px-2.5 py-1 text-xs font-semibold rounded-md bg-white border border-slate-300 text-slate-800">{skill}</span>
                       ))}
                     </div>
                   </div>
 
-                  <div style={{ padding: '16px', borderRadius: '14px', backgroundColor: '#f8fafc', border: '1px solid #e2e8f0' }}>
-                    <h3 style={{ fontWeight: '800', color: '#047857', fontSize: '13px', marginBottom: '10px', textTransform: 'uppercase' }}>Systems &amp; Architecture</h3>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                  <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                    <h3 className="font-bold text-emerald-700 text-xs uppercase mb-2">Systems &amp; Architecture</h3>
+                    <div className="flex flex-wrap gap-1.5">
                       {['Database Management', 'Computer Networking', 'Digital Logic Design (DLD)', 'Microcontroller Programming', 'Git Version Control'].map((skill) => (
-                        <span key={skill} style={{ padding: '5px 10px', fontSize: '12px', fontWeight: '700', borderRadius: '8px', backgroundColor: '#ffffff', border: '1px solid #cbd5e1', color: '#1e293b' }}>{skill}</span>
+                        <span key={skill} className="px-2.5 py-1 text-xs font-semibold rounded-md bg-white border border-slate-300 text-slate-800">{skill}</span>
                       ))}
                     </div>
                   </div>
 
-                  <div style={{ padding: '16px', borderRadius: '14px', backgroundColor: '#f8fafc', border: '1px solid #e2e8f0' }}>
-                    <h3 style={{ fontWeight: '800', color: '#b45309', fontSize: '13px', marginBottom: '10px', textTransform: 'uppercase' }}>Spoken Languages</h3>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                  <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                    <h3 className="font-bold text-amber-700 text-xs uppercase mb-2">Spoken Languages</h3>
+                    <div className="flex flex-wrap gap-1.5">
                       {['Brahui (Native)', 'Balochi (Native)', 'Urdu (Fluent)', 'English (Fluent)'].map((skill) => (
-                        <span key={skill} style={{ padding: '5px 10px', fontSize: '12px', fontWeight: '700', borderRadius: '8px', backgroundColor: '#ffffff', border: '1px solid #cbd5e1', color: '#1e293b' }}>{skill}</span>
+                        <span key={skill} className="px-2.5 py-1 text-xs font-semibold rounded-md bg-white border border-slate-300 text-slate-800">{skill}</span>
                       ))}
                     </div>
                   </div>
-
                 </div>
               </div>
             )}
@@ -380,72 +400,54 @@ export default function Home() {
             {/* MODAL 3: CREDENTIALS */}
             {activeModal === 'credentials' && (
               <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
-                  <Award style={{ width: '24px', height: '24px', color: '#059669' }} />
-                  <h2 style={{ fontSize: '1.5rem', fontWeight: '900', color: '#0f172a' }}>Education, Certifications &amp; Experience</h2>
+                <div className="flex items-center gap-2.5 mb-1.5">
+                  <Award className="w-6 h-6 text-emerald-600" />
+                  <h2 className="text-xl sm:text-2xl font-black text-slate-900">Education &amp; Certifications</h2>
                 </div>
-                <p style={{ fontSize: '13px', color: '#64748b', marginBottom: '22px' }}>Academic credentials, formal certifications, and internships.</p>
+                <p className="text-xs text-slate-500 mb-5">Academic credentials, formal certifications, and internships.</p>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  
-                  {/* Education Timeline */}
-                  <div style={{ padding: '18px', borderRadius: '16px', backgroundColor: '#ecfdf5', border: '1.5px solid #a7f3d0' }}>
-                    <h3 style={{ fontSize: '14px', fontWeight: '900', color: '#064e3b', textTransform: 'uppercase', marginBottom: '10px' }}>Education History</h3>
-                    
-                    <div style={{ marginBottom: '12px' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <strong style={{ fontSize: '14px', color: '#064e3b' }}>B.E. Computer Systems Engineering</strong>
-                        <span style={{ fontSize: '12px', fontWeight: '700', color: '#047857' }}>March 2022 – Dec 2025</span>
+                <div className="flex flex-col gap-3.5">
+                  <div className="p-4 sm:p-5 rounded-2xl bg-emerald-50 border border-emerald-200">
+                    <h3 className="text-xs font-black text-emerald-900 uppercase mb-2">Education History</h3>
+                    <div className="mb-2">
+                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
+                        <strong className="text-sm text-emerald-950">B.E. Computer Systems Engineering</strong>
+                        <span className="text-xs font-bold text-emerald-700">March 2022 – Dec 2025</span>
                       </div>
-                      <p style={{ fontSize: '13px', color: '#065f46', margin: '2px 0' }}>Balochistan University of Engineering &amp; Technology, Khuzdar</p>
-                      <p style={{ fontSize: '12px', fontWeight: '800', color: '#047857', margin: '2px 0' }}>Final Project: Crypto Sniper Bot for Meme Coins</p>
+                      <p className="text-xs text-emerald-800 m-0 mt-0.5">Balochistan University of Engineering &amp; Technology, Khuzdar</p>
                     </div>
-
-                    <div style={{ borderTop: '1px solid #bbf7d0', paddingTop: '8px', marginBottom: '8px' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <span style={{ fontSize: '13px', fontWeight: '700', color: '#064e3b' }}>Intermediate • Govt Boys Degree College Nushki</span>
-                        <span style={{ fontSize: '12px', color: '#047857' }}>Aug 2019 – Aug 2021 (764/1100)</span>
+                    <div className="border-t border-emerald-200/80 pt-2 mb-2">
+                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center text-xs">
+                        <span className="font-semibold text-emerald-900">Intermediate • Govt Boys Degree College Nushki</span>
+                        <span className="text-emerald-700">Aug 2019 – Aug 2021 (764/1100)</span>
                       </div>
                     </div>
-
-                    <div style={{ borderTop: '1px solid #bbf7d0', paddingTop: '8px' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <span style={{ fontSize: '13px', fontWeight: '700', color: '#064e3b' }}>Matriculation • Govt Boys High Secondary School Sharif Khan Nushki</span>
-                        <span style={{ fontSize: '12px', color: '#047857' }}>May 2017 – Apr 2019 (755/1100)</span>
+                    <div className="border-t border-emerald-200/80 pt-2">
+                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center text-xs">
+                        <span className="font-semibold text-emerald-900">Matriculation • Govt Boys High Secondary School Sharif Khan Nushki</span>
+                        <span className="text-emerald-700">May 2017 – Apr 2019 (755/1100)</span>
                       </div>
                     </div>
                   </div>
 
-                  {/* Certified Training & Honors */}
-                  <div style={{ padding: '18px', borderRadius: '16px', backgroundColor: '#f8fafc', border: '1.5px solid #e2e8f0' }}>
-                    <h3 style={{ fontSize: '14px', fontWeight: '900', color: '#0f172a', textTransform: 'uppercase', marginBottom: '10px' }}>Online Training &amp; Certifications</h3>
-                    <ul style={{ fontSize: '13px', color: '#475569', lineHeight: '1.7', margin: 0, paddingLeft: '18px' }}>
-                      <li><strong>Generative AI Application Developer (Nov–Dec 2025):</strong> Pak Angels &amp; UETIANS Lahore. NCEAC-HEC certified 40-day intensive track. Awarded <em>Top Performer Award</em>.</li>
-                      <li><strong>WordPress &amp; Freelancing Course (July 2023 – Oct 2023):</strong> DGskills certification in digital marketing and client workflows.</li>
+                  <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200">
+                    <h3 className="text-xs font-black text-slate-900 uppercase mb-2">Online Training &amp; Certifications</h3>
+                    <ul className="text-xs sm:text-sm text-slate-600 leading-relaxed m-0 pl-4 list-disc space-y-1">
+                      <li><strong>Generative AI Application Developer (Nov–Dec 2025):</strong> Pak Angels &amp; UETIANS Lahore • NCEAC-HEC Certified • Awarded <em>Top Performer Award</em>.</li>
+                      <li><strong>WordPress &amp; Freelancing Course (July 2023 – Oct 2023):</strong> DGskills certification.</li>
                       <li><strong>Graphic Designing Course (June 2022 – Nov 2022):</strong> National Freelance Training Program (NFTP).</li>
                       <li><strong>Computer Basics (6 Months) (Aug 2020 – Jan 2021):</strong> Social Welfare Computer Center Nushki.</li>
                     </ul>
                   </div>
 
-                  {/* Internships */}
-                  <div style={{ padding: '18px', borderRadius: '16px', backgroundColor: '#f8fafc', border: '1.5px solid #e2e8f0' }}>
-                    <h3 style={{ fontSize: '14px', fontWeight: '900', color: '#0f172a', textTransform: 'uppercase', marginBottom: '10px' }}>Internships</h3>
-                    <ul style={{ fontSize: '13px', color: '#475569', lineHeight: '1.7', margin: 0, paddingLeft: '18px' }}>
-                      <li><strong>Summer Internship Program | ISPR (August 2025):</strong> Strategic communication, national governance, institutional frameworks, and media relations.</li>
-                      <li><strong>Virtual AI/ML Internship | Arch Technologies:</strong> End-to-end ML model development, validation, and feature engineering using TensorFlow/scikit-learn.</li>
-                      <li><strong>Python Development Internship | Code Alpha:</strong> Backend scripting, automation of data handling, and Git version control collaboration.</li>
+                  <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200">
+                    <h3 className="text-xs font-black text-slate-900 uppercase mb-2">Internships</h3>
+                    <ul className="text-xs sm:text-sm text-slate-600 leading-relaxed m-0 pl-4 list-disc space-y-1">
+                      <li><strong>Summer Internship Program | ISPR (August 2025):</strong> Strategic communication &amp; national affairs.</li>
+                      <li><strong>Virtual AI/ML Internship | Arch Technologies:</strong> End-to-end Machine Learning model creation with TensorFlow.</li>
+                      <li><strong>Python Development Internship | Code Alpha:</strong> Backend scripting &amp; Git version control.</li>
                     </ul>
                   </div>
-
-                  {/* Leadership & Services */}
-                  <div style={{ padding: '18px', borderRadius: '16px', backgroundColor: '#eff6ff', border: '1.5px solid #bfdbfe' }}>
-                    <h3 style={{ fontSize: '14px', fontWeight: '900', color: '#1e40af', textTransform: 'uppercase', marginBottom: '8px' }}>Leadership, Scouting &amp; Outreach</h3>
-                    <p style={{ fontSize: '13px', color: '#1e3a8a', lineHeight: '1.6', margin: 0 }}>
-                      • <strong>Scouting &amp; Wilderness Training:</strong> Expeditions in Quetta &amp; Ziarat (3 instances) covering emergency preparedness, survival, and team leadership.<br />
-                      • <strong>Community Outreach:</strong> Active participation in Prime Minister Green Youth Program and student welfare organizations.
-                    </p>
-                  </div>
-
                 </div>
               </div>
             )}
@@ -453,17 +455,17 @@ export default function Home() {
             {/* MODAL 4: ABOUT ME */}
             {activeModal === 'about' && (
               <div>
-                <h2 style={{ fontSize: '1.5rem', fontWeight: '900', color: '#0f172a', marginBottom: '6px' }}>About Me</h2>
-                <p style={{ fontSize: '13px', color: '#64748b', marginBottom: '20px' }}>Professional profile and focus areas.</p>
-                <div style={{ padding: '20px', borderRadius: '16px', backgroundColor: '#f8fafc', border: '1.5px solid #e2e8f0', color: '#334155', fontSize: '14px', lineHeight: '1.8' }}>
-                  <p style={{ marginBottom: '14px' }}>
-                    Driven and highly accomplished <strong>Computer Systems Engineer</strong> seeking an immediate role where I can transition my strong academic background into high-impact practical solutions.
+                <h2 className="text-xl sm:text-2xl font-black text-slate-900 mb-1">About Me</h2>
+                <p className="text-xs text-slate-500 mb-4">Professional profile and focus areas.</p>
+                <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200 text-xs sm:text-sm text-slate-700 leading-relaxed space-y-3">
+                  <p>
+                    Driven and highly accomplished <strong>Computer Systems Engineer</strong> seeking an immediate role where I can transition my strong academic background into practical solutions.
                   </p>
-                  <p style={{ marginBottom: '14px' }}>
+                  <p>
                     I specialize in backend development, leveraging <strong>C++ and Python</strong>, with deep applied knowledge in Database Management, Computer Networking, and high-concurrency systems.
                   </p>
                   <p>
-                    My experience includes developing specialized systems such as a high-frequency Crypto Sniper Bot (sub-50ms execution speed) and advanced AI/ML diagnostic applications (97.2% validation accuracy), demonstrating a commitment to delivering fast, functional, and data-efficient results.
+                    My experience includes developing specialized systems such as a high-frequency Crypto Sniper Bot (sub-50ms execution speed) and advanced AI/ML diagnostic applications (97.2% validation accuracy), delivering fast, functional, and data-efficient results.
                   </p>
                 </div>
               </div>
@@ -472,24 +474,24 @@ export default function Home() {
             {/* MODAL 5: CONTACT */}
             {activeModal === 'contact' && (
               <div>
-                <h2 style={{ fontSize: '1.5rem', fontWeight: '900', color: '#0f172a', marginBottom: '6px' }}>Contact Information</h2>
-                <p style={{ fontSize: '13px', color: '#64748b', marginBottom: '20px' }}>Direct contact details for employment and project inquiries.</p>
+                <h2 className="text-xl sm:text-2xl font-black text-slate-900 mb-1">Contact Information</h2>
+                <p className="text-xs text-slate-500 mb-4">Direct contact details for employment and project inquiries.</p>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                  <a href="mailto:zbadini788@Gmail.com" style={{ display: 'flex', alignItems: 'center', gap: '14px', padding: '16px', borderRadius: '14px', backgroundColor: '#eff6ff', border: '1.5px solid #bfdbfe', textDecoration: 'none', color: '#1e40af', fontWeight: '700', fontSize: '14px' }}>
-                    <Mail style={{ width: '20px', height: '20px', color: '#2563eb' }} /> zbadini788@Gmail.com
+                <div className="flex flex-col gap-2.5">
+                  <a href="mailto:zbadini788@Gmail.com" className="flex items-center gap-3 p-3.5 rounded-xl bg-blue-50 border border-blue-200 no-underline text-blue-900 font-bold text-xs sm:text-sm hover:bg-blue-100 transition-colors">
+                    <Mail className="w-4 h-4 text-blue-600" /> zbadini788@Gmail.com
                   </a>
-                  <a href="tel:+923493233604" style={{ display: 'flex', alignItems: 'center', gap: '14px', padding: '16px', borderRadius: '14px', backgroundColor: '#ecfdf5', border: '1.5px solid #a7f3d0', textDecoration: 'none', color: '#065f46', fontWeight: '700', fontSize: '14px' }}>
-                    <Phone style={{ width: '20px', height: '20px', color: '#059669' }} /> +92 349 3233604
+                  <a href="tel:+923493233604" className="flex items-center gap-3 p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 no-underline text-emerald-900 font-bold text-xs sm:text-sm hover:bg-emerald-100 transition-colors">
+                    <Phone className="w-4 h-4 text-emerald-600" /> +92 349 3233604
                   </a>
-                  <a href="https://www.linkedin.com/in/zabi-ullah-1969b3393" target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '14px', padding: '16px', borderRadius: '14px', backgroundColor: '#f8fafc', border: '1.5px solid #cbd5e1', textDecoration: 'none', color: '#0f172a', fontWeight: '700', fontSize: '14px' }}>
-                    <Linkedin style={{ width: '20px', height: '20px', color: '#0a66c2' }} /> linkedin.com/in/zabi-ullah-1969b3393
+                  <a href="https://www.linkedin.com/in/zabi-ullah-1969b3393" target="_blank" rel="noreferrer" className="flex items-center gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200 no-underline text-slate-900 font-bold text-xs sm:text-sm hover:bg-slate-100 transition-colors">
+                    <Linkedin className="w-4 h-4 text-blue-700" /> linkedin.com/in/zabi-ullah-1969b3393
                   </a>
-                  <a href="https://github.com/Zabiullah788" target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '14px', padding: '16px', borderRadius: '14px', backgroundColor: '#f8fafc', border: '1.5px solid #cbd5e1', textDecoration: 'none', color: '#0f172a', fontWeight: '700', fontSize: '14px' }}>
-                    <Github style={{ width: '20px', height: '20px', color: '#24292e' }} /> github.com/Zabiullah788
+                  <a href="https://github.com/Zabiullah788" target="_blank" rel="noreferrer" className="flex items-center gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200 no-underline text-slate-900 font-bold text-xs sm:text-sm hover:bg-slate-100 transition-colors">
+                    <Github className="w-4 h-4 text-slate-800" /> github.com/Zabiullah788
                   </a>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '14px', padding: '16px', borderRadius: '14px', backgroundColor: '#f8fafc', border: '1.5px solid #e2e8f0', color: '#475569', fontSize: '13px', fontWeight: '600' }}>
-                    <MapPin style={{ width: '20px', height: '20px', color: '#64748b' }} /> Kili Sahibzada Nushki, Balochistan, Pakistan
+                  <div className="flex items-center gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-600 font-semibold text-xs sm:text-sm">
+                    <MapPin className="w-4 h-4 text-slate-500" /> Kili Sahibzada Nushki, Balochistan, Pakistan
                   </div>
                 </div>
               </div>
