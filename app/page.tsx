@@ -67,7 +67,6 @@ export default function Home() {
           display: none;
         }
 
-        /* HERO SECTION */
         .hero-card {
           background: #ffffff;
           border: 1px solid #e2e8f0;
@@ -117,7 +116,6 @@ export default function Home() {
           justify-content: center;
         }
 
-        /* SHOWCASE IMAGE FRAME */
         .showcase-frame {
           width: 100%;
           max-width: 260px;
@@ -139,7 +137,6 @@ export default function Home() {
           display: block;
         }
 
-        /* THREE ACTION CARDS */
         .card-row {
           display: grid;
           grid-template-columns: 1fr;
@@ -148,7 +145,6 @@ export default function Home() {
           margin-bottom: 20px;
         }
 
-        /* DESKTOP MEDIA QUERIES */
         @media (min-width: 769px) {
           .container-shell {
             padding: 24px 32px;
@@ -201,16 +197,14 @@ export default function Home() {
 
       <div className="container-shell">
         
-        {/* TOP HEADER */}
+        {/* HEADER */}
         <header className="header-bar">
-          
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '5px 12px', borderRadius: '9999px', backgroundColor: '#ecfdf5', border: '1px solid #a7f3d0' }}>
             <span style={{ width: '7px', height: '7px', borderRadius: '9999px', backgroundColor: '#10b981', display: 'inline-block' }}></span>
             <span style={{ fontSize: '11px', fontWeight: '700', color: '#047857' }}>Available for Work</span>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-            
             <nav className="desktop-nav">
               <button onClick={() => openModal('about')} style={{ background: 'none', border: 'none', fontSize: '13px', fontWeight: '600', color: '#475569', cursor: 'pointer' }}>About Me</button>
               <button onClick={() => openModal('projects')} style={{ background: 'none', border: 'none', fontSize: '13px', fontWeight: '600', color: '#475569', cursor: 'pointer' }}>Projects</button>
@@ -226,7 +220,6 @@ export default function Home() {
               Contact
             </button>
 
-            {/* Profile Picture */}
             <div style={{ width: '38px', height: '38px', minWidth: '38px', maxWidth: '38px', minHeight: '38px', maxHeight: '38px', borderRadius: '9999px', border: '2px solid #ffffff', boxShadow: '0 2px 6px rgba(0,0,0,0.1)', overflow: 'hidden', flexShrink: 0, position: 'relative' }}>
               <img
                 src="/profile.jpg"
@@ -238,7 +231,6 @@ export default function Home() {
               />
             </div>
 
-            {/* Mobile Hamburger Toggle */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="mobile-menu-btn"
@@ -250,7 +242,7 @@ export default function Home() {
           </div>
         </header>
 
-        {/* Mobile Slideout Menu */}
+        {/* MOBILE MENU */}
         {mobileMenuOpen && (
           <div style={{ width: '100%', padding: '14px', borderRadius: '16px', backgroundColor: '#ffffff', border: '1px solid #e2e8f0', boxShadow: '0 10px 25px rgba(0,0,0,0.06)', display: 'flex', flexDirection: 'column', gap: '6px', margin: '10px 0' }}>
             <button onClick={() => openModal('about')} style={{ textAlign: 'left', padding: '10px 12px', fontSize: '13px', fontWeight: '600', color: '#334155', background: 'none', border: 'none', cursor: 'pointer' }}>About Me</button>
@@ -261,9 +253,8 @@ export default function Home() {
           </div>
         )}
 
-        {/* HERO SHOWCASE CARD */}
+        {/* HERO CARD */}
         <section className="hero-card">
-          
           <div className="hero-content">
             <div style={{ color: '#2563eb', fontWeight: '800', fontSize: '11px', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '8px' }}>
               COMPUTER SYSTEMS ENGINEER
@@ -310,7 +301,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Compact Workstation Frame */}
           <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <div className="showcase-frame">
               <img
@@ -319,12 +309,10 @@ export default function Home() {
               />
             </div>
           </div>
-
         </section>
 
         {/* BOTTOM THREE ACTION CARDS */}
         <section className="card-row">
-          
           <button
             onClick={() => openModal('skills')}
             style={{ padding: '18px 20px', borderRadius: '18px', backgroundColor: '#ffffff', border: '1px solid #e2e8f0', boxShadow: '0 2px 10px rgba(0,0,0,0.02)', cursor: 'pointer', textAlign: 'left', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
@@ -381,7 +369,6 @@ export default function Home() {
               View Credentials &amp; History <ChevronRight style={{ width: '14px', height: '14px' }} />
             </div>
           </button>
-
         </section>
 
         {/* FOOTER */}
@@ -402,7 +389,7 @@ export default function Home() {
           </p>
         </footer>
 
-        {/* MODAL POPUPS */}
+        {/* POPUP MODALS */}
         {activeModal && (
           <div style={{ position: 'fixed', inset: 0, zIndex: 999, backgroundColor: 'rgba(15, 23, 42, 0.65)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '12px' }}>
             <div style={{ position: 'relative', width: '100%', maxWidth: '600px', backgroundColor: '#ffffff', borderRadius: '20px', padding: '22px', border: '1px solid #e2e8f0', maxHeight: '88vh', overflowY: 'auto' }}>
@@ -421,7 +408,7 @@ export default function Home() {
                     <FolderGit2 style={{ width: '20px', height: '20px', color: '#db2777' }} />
                     <h2 style={{ fontSize: '1.25rem', fontWeight: '900', color: '#0f172a', margin: 0 }}>Applied Technical Projects (4)</h2>
                   </div>
-                  <p style={{ fontSize: '12px', color: '#64748b', marginBottom: '16px' }}>Verified implementations from my CV[cite: 1].</p>
+                  <p style={{ fontSize: '12px', color: '#64748b', marginBottom: '16px' }}>Verified implementations.</p>
 
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                     
@@ -431,7 +418,7 @@ export default function Home() {
                         <span style={{ fontSize: '10px', fontWeight: '800', padding: '2px 7px', borderRadius: '5px', backgroundColor: '#dbeafe', color: '#1e40af' }}>Sub-50ms</span>
                       </div>
                       <p style={{ fontSize: '12px', color: '#475569', lineHeight: '1.5', margin: '0 0 6px 0' }}>
-                        Low-latency algorithmic bot utilizing Python and Web3 on Ethereum[cite: 1].
+                        Low-latency algorithmic bot utilizing Python and Web3 on Ethereum.
                       </p>
                       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
                         {['Python', 'Web3', 'Ethereum', 'High-Concurrency'].map(t => (
@@ -446,7 +433,7 @@ export default function Home() {
                         <span style={{ fontSize: '10px', fontWeight: '800', padding: '2px 7px', borderRadius: '5px', backgroundColor: '#d1fae5', color: '#065f46' }}>97.2% Accuracy</span>
                       </div>
                       <p style={{ fontSize: '12px', color: '#475569', lineHeight: '1.5', margin: '0 0 6px 0' }}>
-                        Deep CNN in TensorFlow/PyTorch classifying chest X-ray images for diagnosis[cite: 1].
+                        Deep CNN in TensorFlow/PyTorch classifying chest X-ray images for diagnosis.
                       </p>
                       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
                         {['TensorFlow', 'PyTorch', 'CNN', 'NumPy', 'Pandas'].map(t => (
@@ -461,7 +448,7 @@ export default function Home() {
                         <span style={{ fontSize: '10px', fontWeight: '800', padding: '2px 7px', borderRadius: '5px', backgroundColor: '#fef3c7', color: '#92400e' }}>Hardware DLD</span>
                       </div>
                       <p style={{ fontSize: '12px', color: '#475569', lineHeight: '1.5', margin: '0 0 6px 0' }}>
-                        Control logic using Digital Logic Design (DLD) and C for microcontrollers[cite: 1].
+                        Control logic using Digital Logic Design (DLD) and C for microcontrollers.
                       </p>
                       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
                         {['C', 'Microcontrollers', 'DLD', 'Hardware'].map(t => (
@@ -476,7 +463,7 @@ export default function Home() {
                         <span style={{ fontSize: '10px', fontWeight: '800', padding: '2px 7px', borderRadius: '5px', backgroundColor: '#f3e8ff', color: '#7e22ce' }}>Mobile App</span>
                       </div>
                       <p style={{ fontSize: '12px', color: '#475569', lineHeight: '1.5', margin: '0 0 6px 0' }}>
-                        Speech synthesis combining Gemini API routing with decentralized cloud inference[cite: 1].
+                        Speech synthesis combining Gemini API routing with decentralized cloud inference.
                       </p>
                       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
                         {['Gemini API', 'Hugging Face', 'FastAPI', 'Python'].map(t => (
@@ -508,14 +495,14 @@ export default function Home() {
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '13px', color: '#334155' }}>
                     <div style={{ padding: '12px', borderRadius: '10px', backgroundColor: '#ecfdf5', border: '1px solid #a7f3d0' }}>
                       <strong>B.E. Computer Systems Engineering</strong>
-                      <p style={{ margin: '2px 0 0 0', color: '#065f46' }}>Balochistan University of Engineering &amp; Technology, Khuzdar[cite: 1]</p>
+                      <p style={{ margin: '2px 0 0 0', color: '#065f46' }}>Balochistan University of Engineering &amp; Technology, Khuzdar</p>
                     </div>
                     <div style={{ padding: '12px', borderRadius: '10px', backgroundColor: '#f8fafc', border: '1px solid #e2e8f0' }}>
                       <strong>Generative AI Application Developer (Top Performer)</strong>
-                      <p style={{ margin: '2px 0 0 0', color: '#64748b' }}>Pak Angels &amp; UETIANS Lahore (NCEAC-HEC Certified)[cite: 1]</p>
+                      <p style={{ margin: '2px 0 0 0', color: '#64748b' }}>Pak Angels &amp; UETIANS Lahore (NCEAC-HEC Certified)</p>
                     </div>
                     <div style={{ padding: '12px', borderRadius: '10px', backgroundColor: '#f8fafc', border: '1px solid #e2e8f0' }}>
-                      <strong>Internships:</strong> ISPR Summer Internship, Arch Technologies (AI/ML), Code Alpha (Python)[cite: 1].
+                      <strong>Internships:</strong> ISPR Summer Internship, Arch Technologies (AI/ML), Code Alpha (Python).
                     </div>
                   </div>
                 </div>
@@ -526,7 +513,7 @@ export default function Home() {
                 <div>
                   <h2 style={{ fontSize: '1.25rem', fontWeight: '900', color: '#0f172a', marginBottom: '8px' }}>About Me</h2>
                   <p style={{ fontSize: '13px', lineHeight: '1.6', color: '#334155' }}>
-                    Driven Computer Systems Engineer specializing in backend development, low-latency architectures, and high-concurrency systems using Python and C++[cite: 1].
+                    Driven Computer Systems Engineer specializing in backend development, low-latency architectures, and high-concurrency systems using Python and C++.
                   </p>
                 </div>
               )}
@@ -537,10 +524,10 @@ export default function Home() {
                   <h2 style={{ fontSize: '1.25rem', fontWeight: '900', color: '#0f172a', marginBottom: '8px' }}>Get In Touch</h2>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                     <a href="mailto:zbadini788@Gmail.com" style={{ padding: '10px 14px', borderRadius: '10px', backgroundColor: '#eff6ff', border: '1px solid #bfdbfe', color: '#1e40af', fontWeight: '700', textDecoration: 'none', fontSize: '13px' }}>
-                      Email: zbadini788@Gmail.com[cite: 1]
+                      Email: zbadini788@Gmail.com
                     </a>
                     <a href="tel:+923493233604" style={{ padding: '10px 14px', borderRadius: '10px', backgroundColor: '#ecfdf5', border: '1.5px solid #a7f3d0', color: '#065f46', fontWeight: '700', textDecoration: 'none', fontSize: '13px' }}>
-                      Phone: +92 349 3233604[cite: 1]
+                      Phone: +92 349 3233604
                     </a>
                   </div>
                 </div>
