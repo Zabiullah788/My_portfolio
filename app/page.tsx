@@ -52,8 +52,6 @@ export default function Home() {
           flex-direction: column;
           justify-content: space-between;
         }
-
-        /* HEADER */
         .header-bar {
           display: flex;
           align-items: center;
@@ -69,13 +67,13 @@ export default function Home() {
           display: none;
         }
 
-        /* HERO CARD */
+        /* HERO SECTION */
         .hero-card {
           background: #ffffff;
           border: 1px solid #e2e8f0;
           border-radius: 24px;
-          padding: 24px 20px;
-          margin: 20px 0;
+          padding: 24px 18px;
+          margin: 18px 0;
           display: flex;
           flex-direction: column;
           gap: 20px;
@@ -88,7 +86,7 @@ export default function Home() {
           width: 100%;
         }
         .hero-name {
-          font-size: 2.4rem;
+          font-size: 2.3rem;
           font-weight: 900;
           letter-spacing: -0.03em;
           line-height: 1.05;
@@ -99,7 +97,7 @@ export default function Home() {
           font-size: 14px;
           line-height: 1.6;
           color: #475569;
-          margin-bottom: 18px;
+          margin-bottom: 16px;
         }
         .badge-list {
           display: flex;
@@ -119,16 +117,16 @@ export default function Home() {
           justify-content: center;
         }
 
-        /* COMPACT WORKSPACE IMAGE */
+        /* SHOWCASE IMAGE FRAME */
         .showcase-frame {
           width: 100%;
-          max-width: 280px;
+          max-width: 260px;
           margin: 0 auto;
           border-radius: 18px;
           overflow: hidden;
           background: linear-gradient(135deg, #eff6ff 0%, #f1f5f9 100%);
           border: 1px solid #e2e8f0;
-          padding: 12px;
+          padding: 10px;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -136,12 +134,12 @@ export default function Home() {
         .showcase-frame img {
           width: 100%;
           height: auto;
-          max-height: 190px;
+          max-height: 180px;
           object-fit: contain;
           display: block;
         }
 
-        /* FEATURE CARDS ROW */
+        /* THREE ACTION CARDS */
         .card-row {
           display: grid;
           grid-template-columns: 1fr;
@@ -150,7 +148,7 @@ export default function Home() {
           margin-bottom: 20px;
         }
 
-        /* DESKTOP MEDIA QUERIES (> 768px) */
+        /* DESKTOP MEDIA QUERIES */
         @media (min-width: 769px) {
           .container-shell {
             padding: 24px 32px;
@@ -203,16 +201,14 @@ export default function Home() {
 
       <div className="container-shell">
         
-        {/* 1. TOP HEADER NAVIGATION */}
+        {/* TOP HEADER */}
         <header className="header-bar">
           
-          {/* Status Badge */}
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '5px 12px', borderRadius: '9999px', backgroundColor: '#ecfdf5', border: '1px solid #a7f3d0' }}>
             <span style={{ width: '7px', height: '7px', borderRadius: '9999px', backgroundColor: '#10b981', display: 'inline-block' }}></span>
             <span style={{ fontSize: '11px', fontWeight: '700', color: '#047857' }}>Available for Work</span>
           </div>
 
-          {/* Right Header Navigation */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             
             <nav className="desktop-nav">
@@ -230,7 +226,7 @@ export default function Home() {
               Contact
             </button>
 
-            {/* Avatar Photo */}
+            {/* Profile Picture */}
             <div style={{ width: '38px', height: '38px', minWidth: '38px', maxWidth: '38px', minHeight: '38px', maxHeight: '38px', borderRadius: '9999px', border: '2px solid #ffffff', boxShadow: '0 2px 6px rgba(0,0,0,0.1)', overflow: 'hidden', flexShrink: 0, position: 'relative' }}>
               <img
                 src="/profile.jpg"
@@ -242,7 +238,7 @@ export default function Home() {
               />
             </div>
 
-            {/* Mobile Hamburger Button */}
+            {/* Mobile Hamburger Toggle */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="mobile-menu-btn"
@@ -265,10 +261,9 @@ export default function Home() {
           </div>
         )}
 
-        {/* 2. HERO SHOWCASE CARD */}
+        {/* HERO SHOWCASE CARD */}
         <section className="hero-card">
           
-          {/* Bio Column */}
           <div className="hero-content">
             <div style={{ color: '#2563eb', fontWeight: '800', fontSize: '11px', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '8px' }}>
               COMPUTER SYSTEMS ENGINEER
@@ -281,19 +276,19 @@ export default function Home() {
             <div style={{ width: '36px', height: '4px', backgroundColor: '#2563eb', borderRadius: '9999px', marginBottom: '14px' }}></div>
 
             <p className="hero-summary">
-              Specializing in backend development with <strong style={{ color: '#0f172a' }}>Python &amp; C++</strong>, database management, high-concurrency systems, and advanced AI/ML diagnostic applications[cite: 1].
+              Specializing in backend development with <strong style={{ color: '#0f172a' }}>Python &amp; C++</strong>, database management, high-concurrency systems, and advanced AI/ML diagnostic applications.
             </p>
 
             {/* Badges */}
             <div className="badge-list">
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '4px 10px', fontSize: '11px', fontWeight: '700', borderRadius: '9999px', backgroundColor: '#eff6ff', color: '#1e40af', border: '1px solid #bfdbfe' }}>
-                <Terminal style={{ width: '12px', height: '12px' }} /> Python &amp; C++ Backend[cite: 1]
+                <Terminal style={{ width: '12px', height: '12px' }} /> Python &amp; C++ Backend
               </span>
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '4px 10px', fontSize: '11px', fontWeight: '700', borderRadius: '9999px', backgroundColor: '#faf5ff', color: '#7e22ce', border: '1px solid #e9d5ff' }}>
-                <BrainCircuit style={{ width: '12px', height: '12px' }} /> AI / ML Systems[cite: 1]
+                <BrainCircuit style={{ width: '12px', height: '12px' }} /> AI / ML Systems
               </span>
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '4px 10px', fontSize: '11px', fontWeight: '700', borderRadius: '9999px', backgroundColor: '#ecfdf5', color: '#047857', border: '1px solid #a7f3d0' }}>
-                <GraduationCap style={{ width: '12px', height: '12px' }} /> BUETK[cite: 1]
+                <GraduationCap style={{ width: '12px', height: '12px' }} /> BUETK
               </span>
             </div>
 
@@ -327,7 +322,7 @@ export default function Home() {
 
         </section>
 
-        {/* 3. BOTTOM CARDS */}
+        {/* BOTTOM THREE ACTION CARDS */}
         <section className="card-row">
           
           <button
@@ -341,7 +336,7 @@ export default function Home() {
               <h3 style={{ fontSize: '15px', fontWeight: '800', color: '#0f172a', margin: '0 0 2px 0' }}>Tech Stack</h3>
               <p style={{ fontSize: '11px', fontWeight: '800', color: '#2563eb', textTransform: 'uppercase', margin: '0 0 6px 0' }}>Languages &amp; Tools</p>
               <p style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.5', margin: 0 }}>
-                Python, C++, SQL, TensorFlow, PyTorch, Web3, DLD, Git, and Databases[cite: 1].
+                Python, C++, SQL, TensorFlow, PyTorch, Web3, DLD, Git, and Databases.
               </p>
             </div>
             <div style={{ marginTop: '14px', fontSize: '12px', fontWeight: '800', color: '#2563eb', display: 'flex', alignItems: 'center', gap: '4px' }}>
@@ -360,7 +355,7 @@ export default function Home() {
               <h3 style={{ fontSize: '15px', fontWeight: '800', color: '#0f172a', margin: '0 0 2px 0' }}>Projects (4)</h3>
               <p style={{ fontSize: '11px', fontWeight: '800', color: '#db2777', textTransform: 'uppercase', margin: '0 0 6px 0' }}>Applied Systems</p>
               <p style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.5', margin: 0 }}>
-                Crypto Sniper Bot, AI Pneumonia Detection, Parking DLD, and Echo AI[cite: 1].
+                Crypto Sniper Bot, AI Pneumonia Detection, Parking DLD, and Echo AI.
               </p>
             </div>
             <div style={{ marginTop: '14px', fontSize: '12px', fontWeight: '800', color: '#db2777', display: 'flex', alignItems: 'center', gap: '4px' }}>
@@ -379,7 +374,7 @@ export default function Home() {
               <h3 style={{ fontSize: '15px', fontWeight: '800', color: '#0f172a', margin: '0 0 2px 0' }}>Credentials</h3>
               <p style={{ fontSize: '11px', fontWeight: '800', color: '#059669', textTransform: 'uppercase', margin: '0 0 6px 0' }}>Education &amp; Training</p>
               <p style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.5', margin: 0 }}>
-                BUETK Engineering Degree, ISPR, Arch Tech, Code Alpha &amp; Top Performer Generative AI[cite: 1].
+                BUETK Engineering Degree, ISPR, Arch Tech, Code Alpha &amp; Top Performer Generative AI.
               </p>
             </div>
             <div style={{ marginTop: '14px', fontSize: '12px', fontWeight: '800', color: '#059669', display: 'flex', alignItems: 'center', gap: '4px' }}>
@@ -389,7 +384,7 @@ export default function Home() {
 
         </section>
 
-        {/* 4. FOOTER */}
+        {/* FOOTER */}
         <footer style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', paddingTop: '16px', borderTop: '1px solid #e2e8f0' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <a href="https://github.com/Zabiullah788" target="_blank" rel="noreferrer" style={{ width: '34px', height: '34px', borderRadius: '9999px', backgroundColor: '#ffffff', border: '1px solid #cbd5e1', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#334155', textDecoration: 'none' }}>
@@ -407,7 +402,7 @@ export default function Home() {
           </p>
         </footer>
 
-        {/* 5. POPUP WINDOWS */}
+        {/* MODAL POPUPS */}
         {activeModal && (
           <div style={{ position: 'fixed', inset: 0, zIndex: 999, backgroundColor: 'rgba(15, 23, 42, 0.65)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '12px' }}>
             <div style={{ position: 'relative', width: '100%', maxWidth: '600px', backgroundColor: '#ffffff', borderRadius: '20px', padding: '22px', border: '1px solid #e2e8f0', maxHeight: '88vh', overflowY: 'auto' }}>
@@ -447,7 +442,7 @@ export default function Home() {
 
                     <div style={{ padding: '14px', borderRadius: '12px', backgroundColor: '#f8fafc', border: '1px solid #e2e8f0' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '4px' }}>
-                        <h3 style={{ fontWeight: '800', fontSize: '13px', color: '#0f172a', margin: 0 }}>AI-Based Pneumonia Detection</h3>
+                        <h3 style={{ fontWeight: '800', fontSize: '14px', color: '#0f172a', margin: 0 }}>AI-Based Pneumonia Detection</h3>
                         <span style={{ fontSize: '10px', fontWeight: '800', padding: '2px 7px', borderRadius: '5px', backgroundColor: '#d1fae5', color: '#065f46' }}>97.2% Accuracy</span>
                       </div>
                       <p style={{ fontSize: '12px', color: '#475569', lineHeight: '1.5', margin: '0 0 6px 0' }}>
@@ -462,7 +457,7 @@ export default function Home() {
 
                     <div style={{ padding: '14px', borderRadius: '12px', backgroundColor: '#f8fafc', border: '1px solid #e2e8f0' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '4px' }}>
-                        <h3 style={{ fontWeight: '800', fontSize: '13px', color: '#0f172a', margin: 0 }}>Automatic Car Parking System</h3>
+                        <h3 style={{ fontWeight: '800', fontSize: '14px', color: '#0f172a', margin: 0 }}>Automatic Car Parking System</h3>
                         <span style={{ fontSize: '10px', fontWeight: '800', padding: '2px 7px', borderRadius: '5px', backgroundColor: '#fef3c7', color: '#92400e' }}>Hardware DLD</span>
                       </div>
                       <p style={{ fontSize: '12px', color: '#475569', lineHeight: '1.5', margin: '0 0 6px 0' }}>
@@ -477,7 +472,7 @@ export default function Home() {
 
                     <div style={{ padding: '14px', borderRadius: '12px', backgroundColor: '#f8fafc', border: '1px solid #e2e8f0' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '4px' }}>
-                        <h3 style={{ fontWeight: '800', fontSize: '13px', color: '#0f172a', margin: 0 }}>Echo AI: Multimodal TTS &amp; Voice Cloning</h3>
+                        <h3 style={{ fontWeight: '800', fontSize: '14px', color: '#0f172a', margin: 0 }}>Echo AI: Multimodal TTS &amp; Voice Cloning</h3>
                         <span style={{ fontSize: '10px', fontWeight: '800', padding: '2px 7px', borderRadius: '5px', backgroundColor: '#f3e8ff', color: '#7e22ce' }}>Mobile App</span>
                       </div>
                       <p style={{ fontSize: '12px', color: '#475569', lineHeight: '1.5', margin: '0 0 6px 0' }}>
@@ -544,7 +539,7 @@ export default function Home() {
                     <a href="mailto:zbadini788@Gmail.com" style={{ padding: '10px 14px', borderRadius: '10px', backgroundColor: '#eff6ff', border: '1px solid #bfdbfe', color: '#1e40af', fontWeight: '700', textDecoration: 'none', fontSize: '13px' }}>
                       Email: zbadini788@Gmail.com[cite: 1]
                     </a>
-                    <a href="tel:+923493233604" style={{ padding: '10px 14px', borderRadius: '10px', backgroundColor: '#ecfdf5', border: '1px solid #a7f3d0', color: '#065f46', fontWeight: '700', textDecoration: 'none', fontSize: '13px' }}>
+                    <a href="tel:+923493233604" style={{ padding: '10px 14px', borderRadius: '10px', backgroundColor: '#ecfdf5', border: '1.5px solid #a7f3d0', color: '#065f46', fontWeight: '700', textDecoration: 'none', fontSize: '13px' }}>
                       Phone: +92 349 3233604[cite: 1]
                     </a>
                   </div>
